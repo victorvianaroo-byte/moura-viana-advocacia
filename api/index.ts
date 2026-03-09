@@ -8,9 +8,12 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// A Vercel executa a partir da raiz do projeto. 
-// O build do Vite coloca o site em dist/public.
-const staticPath = path.join(process.cwd(), "dist", "public");
+// O Vercel executa a partir da raiz. Tentamos o caminho dist/public (seu padrão) 
+// ou apenas dist (padrão do Vite) como segurança.
+const root = process.cwd();
+const staticPath = fs.existsSync(path.join(root, "dist", "public")) 
+  ? path.join(root, "dist", "public") 
+  : path.join(root, "dist");
 
 // Middleware para arquivos estáticos
 app.use(express.static(staticPath));
@@ -22,15 +25,14 @@ app.get("*", (req, res) => {
   if (fs.existsSync(indexPath)) {
     res.sendFile(indexPath);
   } else {
-    // Se chegar aqui, o build do Vite falhou ou a pasta está errada
     res.status(404).send("Erro: index.html não encontrado em " + staticPath);
   }
 });
 
-// OBRIGATÓRIO PARA VERCEL: Exportar o app sem o .listen()
+// OBRIGATÓRIO PARA VERCEL: Exportar o app
 export default app;
 
-// Execução local (fora da Vercel)
+// Execução local
 if (process.env.NODE_ENV !== "production") {
   const port = process.env.PORT || 3000;
   app.listen(port, () => {
