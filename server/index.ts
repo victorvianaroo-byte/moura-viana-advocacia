@@ -1,31 +1,39 @@
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import fs from "node:fs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 
-/** * Na Vercel, o build do Vite coloca os arquivos em dist/public.
- * O servidor compilado fica em dist/index.js, então voltamos um nível (..) para achar a public.
- */
-const staticPath = path.resolve(__dirname, "..", "dist", "public");
+// A Vercel executa a partir da raiz do projeto. 
+// O build do Vite coloca o site em dist/public.
+const staticPath = path.join(process.cwd(), "dist", "public");
 
+// Middleware para arquivos estáticos
 app.use(express.static(staticPath));
 
-// Rota para o frontend (SPA)
-app.get("*", (_req, res) => {
-  res.sendFile(path.join(staticPath, "index.html"));
+// Rota coringa para o frontend (SPA)
+app.get("*", (req, res) => {
+  const indexPath = path.join(staticPath, "index.html");
+  
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    // Se chegar aqui, o build do Vite falhou ou a pasta está errada
+    res.status(404).send("Erro: index.html não encontrado em " + staticPath);
+  }
 });
 
-// ISSO É O MAIS IMPORTANTE: A Vercel precisa do export default para funcionar
+// OBRIGATÓRIO PARA VERCEL: Exportar o app sem o .listen()
 export default app;
 
-// O servidor só "ouve" a porta se não estiver na produção (Vercel)
+// Execução local (fora da Vercel)
 if (process.env.NODE_ENV !== "production") {
   const port = process.env.PORT || 3000;
   app.listen(port, () => {
-    console.log(`Servidor rodando localmente em http://localhost:${port}`);
+    console.log(`Rodando localmente em http://localhost:${port}`);
   });
 }
