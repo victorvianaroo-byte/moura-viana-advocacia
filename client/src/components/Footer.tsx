@@ -1,7 +1,7 @@
 import { Instagram, Facebook, Linkedin, ArrowUp, Heart } from 'lucide-react';
 
 /**
- * Design Premium - Footer Elegante
+ * Design Premium - Footer Elegante (Versão Simplificada)
  * - Fundo escuro com gradiente
  * - Links bem organizados
  * - Redes sociais com hover effects
@@ -37,7 +37,7 @@ export default function Footer() {
               />
             </div>
             <p className="text-white/70 text-sm leading-relaxed">
-              Excelência em soluções jurídicas há mais de 20 anos. Confiança e resultados comprovados.
+              Comprometimento com a justiça, confiança e resultados comprovados.
             </p>
           </div>
 

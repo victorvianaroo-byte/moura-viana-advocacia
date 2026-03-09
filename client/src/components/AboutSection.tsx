@@ -1,12 +1,10 @@
-import { CheckCircle2, Award, Users, Zap, Shield, Heart, Lightbulb } from 'lucide-react';
+import { CheckCircle2, Users, Zap, Shield, Heart, Lightbulb } from 'lucide-react';
 
 /**
- * Design Premium - About Section Sofisticada
- * - Layout assimétrico e elegante
+ * Design Premium - About Section Sofisticada (Versão Simplificada)
+ * - Layout centralizado e elegante
  * - Diferenciais com ícones e design premium
  * - Cards de Missão/Visão/Valores com efeitos visuais
- * - Animações interativas ao hover
- * - Stats com animações de contagem
  */
 
 export default function AboutSection() {
@@ -30,11 +28,6 @@ export default function AboutSection() {
       icon: Zap,
       title: 'Agilidade Processual',
       description: 'Utilizamos tecnologia avançada para acelerar processos e entregar resultados mais rápidos.'
-    },
-    {
-      icon: Award,
-      title: 'Resultados Comprovados',
-      description: 'Histórico de sucesso em casos complexos com índice elevado de satisfação de clientes.'
     },
     {
       icon: Lightbulb,
@@ -65,75 +58,17 @@ export default function AboutSection() {
             MOURA & VIANA
           </h2>
           <p className="text-lg text-white/70 max-w-2xl mx-auto font-light">
-            Mais de 20 anos dedicados à excelência jurídica e ao atendimento humanizado
+            Dedicados à excelência jurídica e ao atendimento humanizado
           </p>
         </div>
 
-        {/* Conteúdo Principal com Layout Assimétrico */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-24 items-center">
-          {/* Texto */}
+        {/* Conteúdo Principal Centralizado */}
+        <div className="max-w-3xl mx-auto text-center mb-24">
           <div className="space-y-6">
-            <div>
-              <h3 className="text-2xl font-serif font-bold text-[#c6ac79] mb-4">Nossa História</h3>
-              <p className="text-lg text-white/80 leading-relaxed font-light">
-                Fundado em 2004, o escritório MOURA & VIANA nasceu da união de dois advogados visionários, determinados a oferecer serviços jurídicos de excelência com um diferencial: o atendimento humanizado e próximo do cliente.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-2xl font-serif font-bold text-[#c6ac79] mb-4">Nossa Jornada</h3>
-              <p className="text-lg text-white/80 leading-relaxed font-light">
-                Ao longo de mais de duas décadas, construímos uma sólida reputação baseada em resultados, ética profissional e relacionamentos duradouros com nossos clientes. Nossa equipe multidisciplinar permite atender demandas complexas em diversas áreas do direito.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-2xl font-serif font-bold text-[#c6ac79] mb-4">Nosso Compromisso</h3>
-              <p className="text-lg text-white/80 leading-relaxed font-light">
-                Acreditamos que cada caso é único e merece atenção especial. Por isso, trabalhamos incansavelmente para encontrar as melhores soluções jurídicas, sempre com foco nos objetivos e necessidades específicas de quem confia em nosso trabalho.
-              </p>
-            </div>
-          </div>
-
-          {/* Stats Cards */}
-          <div className="space-y-4">
-            {[
-              { value: '20+', label: 'Anos de Experiência', icon: Award },
-              { value: '+5.000', label: 'Casos Resolvidos', icon: CheckCircle2 },
-              { value: '+3.500', label: 'Clientes Satisfeitos', icon: Users },
-              { value: '2004', label: 'Ano de Fundação', icon: Lightbulb }
-            ].map((stat, idx) => {
-              const Icon = stat.icon;
-              return (
-                <div
-                  key={idx}
-                  className="flex items-center gap-4 p-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl group cursor-pointer"
-                  style={{
-                    background: 'rgba(15, 42, 45, 0.6)',
-                    border: '1px solid rgba(198, 172, 121, 0.2)',
-                    backdropFilter: 'blur(10px)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(15, 42, 45, 0.9)';
-                    e.currentTarget.style.borderColor = 'rgba(198, 172, 121, 0.5)';
-                    e.currentTarget.style.boxShadow = '0 20px 50px rgba(198, 172, 121, 0.2)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(15, 42, 45, 0.6)';
-                    e.currentTarget.style.borderColor = 'rgba(198, 172, 121, 0.2)';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                >
-                  <div className="w-12 h-12 bg-gradient-to-br from-[#c6ac79] to-[#e8dcc0] rounded-lg flex items-center justify-center flex-shrink-0" style={{
-                    boxShadow: '0 10px 25px rgba(198, 172, 121, 0.3)'
-                  }}>
-                    <Icon size={24} className="text-[#002528]" />
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-[#c6ac79]">{stat.value}</p>
-                    <p className="text-white/70 text-sm font-light">{stat.label}</p>
-                  </div>
-                </div>
-              );
-            })}
+            <h3 className="text-2xl md:text-3xl font-serif font-bold text-[#c6ac79] mb-4">Nosso Compromisso</h3>
+            <p className="text-lg md:text-xl text-white/80 leading-relaxed font-light">
+              Acreditamos que cada caso é único e merece atenção especial. Por isso, trabalhamos incansavelmente para encontrar as melhores soluções jurídicas, sempre com foco nos objetivos e necessidades específicas de quem confia em nosso trabalho.
+            </p>
           </div>
         </div>
 
