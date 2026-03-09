@@ -1,16 +1,18 @@
 /**
- * Design Premium - Hero Section Sofisticada (Versão Simplificada)
+ * Design Premium - Hero Section Sofisticada (Versão Ajustada)
  * - Gradientes premium com múltiplas camadas
  * - Efeitos visuais elegantes
  * - Animações sutis ao scroll
  * - Tipografia grande e impactante
+ * - Ajuste de altura (pt-32 md:pt-48) para não cortar no cabeçalho
  */
 
 export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden"
+      // Aumentado pt-24 para pt-32 (mobile) e pt-48 (desktop) para empurrar o conteúdo para baixo
+      className="relative min-h-screen flex items-center justify-center pt-32 md:pt-48 overflow-hidden"
       style={{
         background: 'linear-gradient(135deg, #002528 0%, #001a1d 30%, #0a3a3f 60%, #003d42 100%)',
       }}
