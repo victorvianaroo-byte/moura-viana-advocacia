@@ -8,14 +8,26 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// O Vercel executa a partir da raiz. Tentamos o caminho dist/public (seu padrão) 
-// ou apenas dist (padrão do Vite) como segurança.
+// A Vercel executa a partir da raiz (process.cwd())
 const root = process.cwd();
-const staticPath = fs.existsSync(path.join(root, "dist", "public")) 
-  ? path.join(root, "dist", "public") 
-  : path.join(root, "dist");
+
+// Verificação robusta do caminho da pasta dist
+// Tentamos 'dist/public' primeiro, depois 'dist'
+const possiblePaths = [
+  path.join(root, "dist", "public"),
+  path.join(root, "dist")
+];
+
+let staticPath = possiblePaths[0];
+for (const p of possiblePaths) {
+  if (fs.existsSync(p)) {
+    staticPath = p;
+    break;
+  }
+}
 
 // Middleware para arquivos estáticos
+// Importante: isso deve vir ANTES da rota coringa '*'
 app.use(express.static(staticPath));
 
 // Rota coringa para o frontend (SPA)
@@ -25,11 +37,13 @@ app.get("*", (req, res) => {
   if (fs.existsSync(indexPath)) {
     res.sendFile(indexPath);
   } else {
-    res.status(404).send("Erro: index.html não encontrado em " + staticPath);
+    // Fallback caso o build tenha uma estrutura diferente
+    res.status(404).send(`Erro: index.html não encontrado. Verificado em: ${staticPath}`);
   }
 });
 
-// OBRIGATÓRIO PARA VERCEL: Exportar o app
+// EXPORTAÇÃO PARA VERCEL
+// No ambiente serveless, a Vercel gerencia o ciclo de vida do app
 export default app;
 
 // Execução local
